@@ -1,7 +1,6 @@
 // 导入express
 const express = require('express')
-// 导入路由模块
-const userRouter = require('./router/user')
+
 // 创建web实例
 const app = express()
 
@@ -32,8 +31,12 @@ const expressJWT = require('express-jwt')
 app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api\//] }))
 
 // 挂载路由
+// 导入并使用登录和注册的路由模块
+const userRouter = require('./router/user')
 app.use('/api', userRouter)
-
+// 导入并使用用户信息的路由模块
+const userinfoRouter = require('./router/userinfo')
+app.use('/my', userinfoRouter)
 
 // 导入验证数据规则的包
 const joi = require('@hapi/joi');
