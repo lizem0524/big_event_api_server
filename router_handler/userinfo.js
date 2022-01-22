@@ -23,6 +23,7 @@ exports.getuserinfo = (req, res) => {
 
 //更新用户基本信息的处理函数
 exports.updateUserInfo = (req, res) => {
+    console.log(req.body);
     const sqlStr = 'update ev_users set ? where id=?'
     db.query(sqlStr, [req.body, req.body.id], (err, results) => {
         // 语句执行失败
@@ -36,7 +37,7 @@ exports.updateUserInfo = (req, res) => {
 
 // 重置密码的处理函数
 exports.updatePassword = (req, res) => {
-
+    console.log(req.body);
     // 定义查询语句 查询原密码
     const sqlStr = 'select * from ev_users where id=?'
     db.query(sqlStr, req.user.id, (err, results) => {

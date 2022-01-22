@@ -30,6 +30,9 @@ const config = require('./config')
 const expressJWT = require('express-jwt')
 app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api\//] }))
 
+// 托管静态资源文件
+app.use('/uploads', express.static('./uploads'))
+
 // 挂载路由
 // 导入并使用登录和注册的路由模块
 const userRouter = require('./router/user')
@@ -37,6 +40,12 @@ app.use('/api', userRouter)
 // 导入并使用用户信息的路由模块
 const userinfoRouter = require('./router/userinfo')
 app.use('/my', userinfoRouter)
+// 导入并使用文章分类的路由模块
+const artCateRouter = require('./router/artcate')
+app.use('/my/article', artCateRouter)
+// 导入并使用发布文章的路由模块
+const articleRouter = require('./router/article')
+app.use('/my/article', articleRouter)
 
 // 导入验证数据规则的包
 const joi = require('@hapi/joi');

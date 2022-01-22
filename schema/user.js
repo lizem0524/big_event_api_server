@@ -21,6 +21,7 @@ const email = joi.string().email().required()
 exports.update_userinfo_sechema = {
     body: {
         id,
+        username:joi.string().alphanum().min(1).max(10).required(),
         nickname,
         email
     }
@@ -30,7 +31,8 @@ exports.update_userinfo_sechema = {
 exports.update_password_sechema = {
     body: {
         oldPwd: password,
-        newPwd: joi.not(joi.ref('oldPwd')).concat(password)
+        newPwd: joi.not(joi.ref('oldPwd')).concat(password),
+        repassword: joi.ref('newPwd')
     }
 }
 
